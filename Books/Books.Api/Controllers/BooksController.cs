@@ -38,6 +38,12 @@ namespace Books.Api.Controllers
         public async Task<IActionResult> GetBook(Guid id)
         {
             var bookEntity = await _booksRepository.GetBookAsync(id);
+            if (bookEntity == null)
+            {
+                return NotFound();
+            }
+
+            var bookCover = await _booksRepository.GetBookCoverAsync("dummycover");
             return Ok(bookEntity);
         }
 
